@@ -1,4 +1,4 @@
-# Base para la solución del Laboratorio 4
+# Solución del Laboratorio 4: L. Eduardo Soto Obando.
 
 # Los parámetros T, t_final y N son elegidos arbitrariamente
 
@@ -6,9 +6,9 @@ import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
 
-# Variables aleatorias A y Z
-vaA = stats.norm(3, np.sqrt(10))
-vaZ = stats.uniform(-np.pi/2, np.pi)
+# Variables aleatorias X y Y
+vaX = stats.norm(0, np.sqrt(10))
+vaY = stats.norm(0, np.sqrt(10))
 
 # Creación del vector de tiempo
 T = 100			# número de elementos
@@ -19,11 +19,11 @@ t = np.linspace(0, t_final, T)
 N = 10
 X_t = np.empty((N, len(t)))	# N funciones del tiempo x(t) con T puntos
 
-# Creación de las muestras del proceso x(t) (A y Z independientes)
+# Creación de las muestras del proceso x(t) (X y Y independientes)
 for i in range(N):
-	A = vaA.rvs()
-	Z = vaZ.rvs()
-	x_t = A * np.cos(np.pi*t + Z)
+	X = vaX.rvs()
+	Y = vaY.rvs()
+	x_t = X * np.cos(2*t) + Y * np.sin(2*t)
 	X_t[i,:] = x_t
 	plt.plot(t, x_t)
 
@@ -32,7 +32,7 @@ P = [np.mean(X_t[:,i]) for i in range(len(t))]
 plt.plot(t, P, lw=6)
 
 # Graficar el resultado teórico del valor esperado
-E = 6/np.pi * np.cos(np.pi*t)
+E = 0*t
 plt.plot(t, E, '-.', lw=4)
 
 # Mostrar las realizaciones, y su promedio calculado y teórico
